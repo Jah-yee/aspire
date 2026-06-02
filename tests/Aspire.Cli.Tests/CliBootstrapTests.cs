@@ -49,7 +49,7 @@ public class CliBootstrapTests(ITestOutputHelper outputHelper)
     {
         var reader = new IdentityChannelReader(typeof(Aspire.Cli.Program).Assembly);
 
-        var channel = reader.ReadChannel();
+        Assert.True(reader.TryReadChannel(out var channel, out _));
 
         // Test host can be built with /p:AspireCliChannel=<anything in the accepted set>;
         // assert shape, not a single literal, so this test stops being an accidental
@@ -85,7 +85,8 @@ public class CliBootstrapTests(ITestOutputHelper outputHelper)
         var reader = host.Services.GetRequiredService<IIdentityChannelReader>();
         var context = host.Services.GetRequiredService<CliExecutionContext>();
 
-        Assert.Equal(reader.ReadChannel(), context.IdentityChannel);
+        Assert.True(reader.TryReadChannel(out var channel, out _));
+        Assert.Equal(channel, context.IdentityChannel);
     }
 
     [Fact]
