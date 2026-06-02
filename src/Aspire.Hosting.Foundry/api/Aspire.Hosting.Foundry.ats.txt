@@ -33,6 +33,10 @@ Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.HostedAgentOptions # Options that 
   EnvironmentVariables?: Aspire.Hosting/Dict<string,string> # Environment variables to set on the hosted agent container at runtime. Entries with the same key as an existing environment variable overwrite it.
   Memory?: number # Memory allocation for each hosted agent instance, in GiB. Must be between 1 and 7 in increments of 0.5 and equal to twice the CPU value. When not set, the hosted agent default memory allocation is used.
   Metadata?: Aspire.Hosting/Dict<string,string> # Additional metadata key/value pairs to attach to the hosted agent definition. Entries with the same key as an existing metadata entry overwrite it.
+  Protocols?: Aspire.Hosting/List<Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.HostedAgentProtocolVersion> # Protocol versions that the hosted agent container supports for ingress communication. When not set, the hosted agent default responses protocol is used.
+Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.HostedAgentProtocolVersion # A protocol and version supported by a Microsoft Foundry hosted agent container.
+  Protocol: string # The protocol name, such as `responses` or `invocations`.
+  Version: string # The protocol version, such as `1.0.0`.
 
 # Enum Types
 enum:Aspire.Hosting.FoundryRole = CognitiveServicesOpenAIContributor | CognitiveServicesOpenAIUser | CognitiveServicesUser
@@ -268,7 +272,7 @@ Aspire.Hosting.Foundry/addSearchConnection(search: Aspire.Hosting.Azure.Search/A
 Aspire.Hosting.Foundry/addSharePointTool(name: string, projectConnectionIds: string[]) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.SharePointToolResource
 Aspire.Hosting.Foundry/addStorageConnection(storage: Aspire.Hosting.Azure.Storage/Aspire.Hosting.Azure.AzureStorageResource) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectConnectionResource
 Aspire.Hosting.Foundry/addWebSearchTool(name: string) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.WebSearchToolResource
-Aspire.Hosting.Foundry/asHostedAgentExecutable(project: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectResource, options?: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.HostedAgentOptions) -> Aspire.Hosting/Aspire.Hosting.ApplicationModel.IResourceWithEndpoints
+Aspire.Hosting.Foundry/asHostedAgent(project: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectResource, options?: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.HostedAgentOptions) -> Aspire.Hosting/Aspire.Hosting.ApplicationModel.IResourceWithEndpoints
 Aspire.Hosting.Foundry/AzurePromptAgentResource.connectionStringExpression(context: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzurePromptAgentResource) -> Aspire.Hosting/Aspire.Hosting.ApplicationModel.ReferenceExpression
 Aspire.Hosting.Foundry/AzurePromptAgentResource.description(context: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzurePromptAgentResource) -> string
 Aspire.Hosting.Foundry/AzurePromptAgentResource.instructions(context: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzurePromptAgentResource) -> string
@@ -304,7 +308,6 @@ Aspire.Hosting.Foundry/runAsFoundryLocal() -> Aspire.Hosting.Foundry/Aspire.Host
 Aspire.Hosting.Foundry/withAppInsights(appInsights: Aspire.Hosting.Azure.ApplicationInsights/Aspire.Hosting.Azure.AzureApplicationInsightsResource) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectResource
 Aspire.Hosting.Foundry/withBingReference(bingReference: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.BingGroundingConnectionResource|string|Aspire.Hosting/Aspire.Hosting.ApplicationModel.ParameterResource) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.BingGroundingToolResource
 Aspire.Hosting.Foundry/withCapabilityHost(resource: Aspire.Hosting.Azure.CosmosDB/Aspire.Hosting.AzureCosmosDBResource|Aspire.Hosting.Azure.Storage/Aspire.Hosting.Azure.AzureStorageResource|Aspire.Hosting.Azure.Search/Aspire.Hosting.Azure.AzureSearchResource|Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.FoundryResource) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectResource
-Aspire.Hosting.Foundry/withComputeEnvironmentExecutable(project?: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectResource, configure?: callback) -> Aspire.Hosting/Aspire.Hosting.ApplicationModel.IResourceWithEndpoints
 Aspire.Hosting.Foundry/withFoundryDeploymentProperties(configure: callback) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.FoundryDeploymentResource
 Aspire.Hosting.Foundry/withFoundryRoleAssignments(target: Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.FoundryResource, roles: enum:Aspire.Hosting.FoundryRole[]) -> Aspire.Hosting/Aspire.Hosting.ApplicationModel.IResource
 Aspire.Hosting.Foundry/withKeyVault(keyVault: Aspire.Hosting.Azure.KeyVault/Aspire.Hosting.Azure.AzureKeyVaultResource) -> Aspire.Hosting.Foundry/Aspire.Hosting.Foundry.AzureCognitiveServicesProjectResource
