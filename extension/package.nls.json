@@ -151,6 +151,7 @@
   "command.refreshAppHosts": "Refresh AppHosts",
   "command.globalRefreshAppHosts": "Refresh running AppHosts",
   "command.openDashboard": "Open Aspire Dashboard",
+  "command.openDashboardToSide": "Open Dashboard to the Side",
   "command.openAppHostSource": "Open AppHost source",
   "command.stopAppHost": "Stop",
   "command.stopResource": "Stop",
